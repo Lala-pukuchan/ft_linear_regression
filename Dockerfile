@@ -15,7 +15,11 @@ COPY ./requirements.txt /app/
 
 # Install Python dependencies from requirements.txt
 RUN pip install --upgrade pip && \
-    pip install -r requirements.txt
+    pip install --upgrade pandas && \
+    pip install --upgrade numpy && \
+    pip install --upgrade matplotlib && \
+    pip install --upgrade jupyter && \
+    pip install --upgrade ipywidgets
 
 # Expose the port Jupyter will run on
 EXPOSE 8888

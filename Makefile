@@ -18,7 +18,6 @@ up : $(ENVFILE)
 
 $(ENVFILE) :
 	@printf "$(YE)"
-	@echo ".envファイルが存在しません。.env.exampleファイルを参考に作成してください。"
 	@printf "$(RC)"
 
 down :
