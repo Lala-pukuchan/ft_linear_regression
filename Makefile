@@ -14,7 +14,7 @@ up : $(ENVFILE)
 	@printf "$(CY)"
 	@echo "Starting up..."
 	@printf "$(RC)"
-	docker compose run app bash
+	docker compose up -d --build
 
 $(ENVFILE) :
 	@printf "$(YE)"

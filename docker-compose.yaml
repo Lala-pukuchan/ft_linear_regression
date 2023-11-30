@@ -1,3 +1,5 @@
+version: '3'
+
 services:
   app:
     build:
@@ -6,5 +8,7 @@ services:
     tty: true
     volumes:
       - ./:/app
+    ports:
+      - "8888:8888"  # Map port 8888 on the host to port 8888 in the container
     # env_file:
     #   - ./.env

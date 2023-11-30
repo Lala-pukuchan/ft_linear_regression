@@ -1,22 +1,24 @@
-# Use the official Python base image
+# Use the official Python image
 FROM python:3.9
 
 # Set the working directory in the container
 WORKDIR /app
 
+# Install necessary system packages
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y poppler-utils python3-tk && \
+    rm -rf /var/lib/apt/lists/*
+
 # Copy the requirements file into the container
 COPY ./requirements.txt /app/
 
-# Update and upgrade the system packages
-# Then install any necessary system packages
-# Then clean up the cache to reduce the layer size
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y poppler-utils && \
-    rm -rf /var/lib/apt/lists/*
-
-# Upgrade pip, setuptools, and wheel in a single RUN statement
-# Install autopep8 and other Python dependencies from requirements.txt in a single RUN statement
-RUN pip install --upgrade pip setuptools wheel && \
-    pip install autopep8 && \
+# Install Python dependencies from requirements.txt
+RUN pip install --upgrade pip && \
     pip install -r requirements.txt
+
+# Expose the port Jupyter will run on
+EXPOSE 8888
+
+# Start the Jupyter Notebook server
+CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--allow-root", "--no-browser", "--NotebookApp.token=''", "--NotebookApp.password=''"]
