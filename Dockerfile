@@ -1,17 +1,22 @@
+# Use the official Python base image
 FROM python:3.9
 
+# Set the working directory in the container
 WORKDIR /app
 
-COPY ./requirements.txt .
+# Copy the requirements file into the container
+COPY ./requirements.txt /app/
+
+# Update and upgrade the system packages
+# Then install any necessary system packages
+# Then clean up the cache to reduce the layer size
 RUN apt-get update && \
-    apt-get upgrade -y
+    apt-get upgrade -y && \
+    apt-get install -y poppler-utils && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN apt-get install -y poppler-utils
-
-RUN pip install --upgrade pip
-RUN pip install --upgrade setuptools
-RUN pip install --upgrade wheel
-RUN pip install sentence-transformers
-RUN pip install huggingface_hub
-RUN pip install autopep8
-RUN pip install -r requirements.txt
+# Upgrade pip, setuptools, and wheel in a single RUN statement
+# Install autopep8 and other Python dependencies from requirements.txt in a single RUN statement
+RUN pip install --upgrade pip setuptools wheel && \
+    pip install autopep8 && \
+    pip install -r requirements.txt
