@@ -161,3 +161,4 @@ cython_debug/
 
 # trained set
 trained_data.csv
+*.png

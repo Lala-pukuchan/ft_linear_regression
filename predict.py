@@ -1,4 +1,5 @@
 import csv
+import matplotlib.pyplot as plt
 
 
 def get_trained_data_from_file():
